@@ -132,4 +132,27 @@ router.put('/:id', function (req, res) {
         res.sendStatus(404);
     }
 });
+// DELETE
+// this api end-point delete an existing item object from
+// array of data, match by `id` find item and then delete
+router.delete('/:id', function (req, res) {
+    // find item from array of data
+    let found = data.find(function (item) {
+        return item.id === parseInt(req.params.id);
+    });
+
+    if (found) {
+        // if item found then find index at which the item is
+        // stored in the `data` array
+        let targetIndex = data.indexOf(found);
+
+        // splice means delete item from `data` array using index
+        data.splice(targetIndex, 1);
+    }
+
+    // return with status 204
+    // success status response code 204 indicates
+    // that the request has succeeded
+    res.sendStatus(204);
+});
 module.exports = router;
